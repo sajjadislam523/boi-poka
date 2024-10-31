@@ -1,8 +1,57 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+    const links = (
+        <>
+            <li>
+                <NavLink
+                    className={({ isActive }) =>
+                        `px-4 py-2 ${
+                            isActive
+                                ? "text-[#23BE0A] border rounded-lg border-[#23BE0A]"
+                                : "text-[#131313CC] border-none"
+                        }`
+                    }
+                    to={"/"}
+                >
+                    Home
+                </NavLink>
+            </li>
+
+            <li>
+                <NavLink
+                    className={({ isActive }) =>
+                        `px-4 py-2 ${
+                            isActive
+                                ? "text-[#23BE0A] border rounded-lg border-[#23BE0A]"
+                                : "text-[#131313CC] border-none"
+                        }`
+                    }
+                    to={"listedbooks"}
+                >
+                    Listed Books
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className={({ isActive }) =>
+                        `px-4 py-2 ${
+                            isActive
+                                ? "text-[#23BE0A] border rounded-lg border-[#23BE0A]"
+                                : "text-[#131313CC] border-none"
+                        }`
+                    }
+                    to={"dashboard"}
+                >
+                    Pages to Read
+                </NavLink>
+            </li>
+        </>
+    );
+
     return (
-        <div className="navbar bg-base-100">
+        <div className="py-8 navbar bg-base-100">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div
@@ -29,52 +78,21 @@ const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                     >
-                        <li>
-                            <a>Item 1</a>
-                        </li>
-                        <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li>
-                                    <a>Submenu 1</a>
-                                </li>
-                                <li>
-                                    <a>Submenu 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a>Item 3</a>
-                        </li>
+                        {links}
                     </ul>
                 </div>
-                <a className="text-xl btn btn-ghost">daisyUI</a>
+                <p className="text-3xl font-bold font-work-sans">Book Vibe</p>
             </div>
             <div className="hidden navbar-center lg:flex">
-                <ul className="px-1 menu menu-horizontal">
-                    <li>
-                        <a>Item 1</a>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul className="p-2">
-                                <li>
-                                    <a>Submenu 1</a>
-                                </li>
-                                <li>
-                                    <a>Submenu 2</a>
-                                </li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li>
-                        <a>Item 3</a>
-                    </li>
-                </ul>
+                <ul className="flex items-center gap-4">{links}</ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+            <div className="flex items-center gap-4 navbar-end">
+                <a className="bg-[#23BE0A] px-4 py-2 rounded-lg text-white font-work-sans font-semibold cursor-pointer">
+                    Sign In
+                </a>
+                <a className="bg-[#59C6D2] px-4 py-2 rounded-lg text-white font-work-sans font-semibold cursor-pointer">
+                    Sign Up
+                </a>
             </div>
         </div>
     );
