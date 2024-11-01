@@ -8,6 +8,7 @@ import Book from "../Book/Book";
 const ListedBooks = () => {
     const [readList, setReadList] = useState([]);
     const [wishList, setWishList] = useState([]);
+    const [sort, setSort] = useState("");
 
     // We're trying this to get the logic of the system
     const allBooks = useLoaderData();
@@ -30,9 +31,44 @@ const ListedBooks = () => {
         );
         setWishList(wishListBook);
     }, []);
+
+    const handleSort = (sortType) => {
+        setSort(sortType);
+
+        if (sortType === "No. of Pages") {
+            const sortedReadList = [...readList].sort(
+                (a, b) => a.totalPages - b.totalPages
+            );
+            setReadList(sortedReadList);
+        }
+
+        if (sortType === "Ratings") {
+            const sortedReadList = [...readList].sort(
+                (a, b) => a.rating - b.rating
+            );
+            setReadList(sortedReadList);
+        }
+    };
+
     return (
-        <div>
+        <div className="flex flex-col items-center justify-center">
             <h1>Books</h1>
+            <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="m-1 btn">
+                    {sort ? `Sort by: ${sort}` : "Sort By"}
+                </div>
+                <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+                >
+                    <li onClick={() => handleSort("Ratings")}>
+                        <a>Ratings</a>
+                    </li>
+                    <li onClick={() => handleSort("Pages")}>
+                        <a>No. of Pages</a>
+                    </li>
+                </ul>
+            </div>
             <Tabs>
                 <TabList>
                     <Tab>Read Books</Tab>
