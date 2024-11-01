@@ -28,7 +28,7 @@ const Navbar = () => {
                                 : "text-[#131313CC] border-none"
                         }`
                     }
-                    to={"listedbooks"}
+                    to={"listedBooks"}
                 >
                     Listed Books
                 </NavLink>
