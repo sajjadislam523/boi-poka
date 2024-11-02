@@ -3,25 +3,23 @@ import { useLoaderData } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { getStoredReadList, getStoredWishList } from "../../Utility/AddToDb";
-import Book from "../Book/Book";
+import ListedBook from "../ListedBook/ListedBook";
 
 const ListedBooks = () => {
     const [readList, setReadList] = useState([]);
     const [wishList, setWishList] = useState([]);
     const [sort, setSort] = useState("");
 
-    // We're trying this to get the logic of the system
     const allBooks = useLoaderData();
 
     useEffect(() => {
         const storedReadList = getStoredReadList();
         const storedReadListInt = storedReadList.map((id) => parseInt(id));
-
         const readBookList = allBooks.filter((book) =>
             storedReadListInt.includes(book.bookId)
         );
         setReadList(readBookList);
-    }, []);
+    }, [allBooks]);
 
     useEffect(() => {
         const storedWishList = getStoredWishList();
@@ -30,7 +28,7 @@ const ListedBooks = () => {
             storedWishListInt.includes(book.bookId)
         );
         setWishList(wishListBook);
-    }, []);
+    }, [allBooks]);
 
     const handleSort = (sortType) => {
         setSort(sortType);
@@ -51,9 +49,11 @@ const ListedBooks = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <h1>Books</h1>
-            <div className="dropdown dropdown-end">
+        <div className="w-full px-4 py-8">
+            <h1 className="text-3xl font-bold text-center font-work-sans bg-[#1313130D] py-4 mb-8 rounded-xl">
+                Books
+            </h1>
+            <div className="mx-auto mb-4 dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="m-1 btn">
                     {sort ? `Sort by: ${sort}` : "Sort By"}
                 </div>
@@ -64,7 +64,7 @@ const ListedBooks = () => {
                     <li onClick={() => handleSort("Ratings")}>
                         <a>Ratings</a>
                     </li>
-                    <li onClick={() => handleSort("Pages")}>
+                    <li onClick={() => handleSort("No. of Pages")}>
                         <a>No. of Pages</a>
                     </li>
                 </ul>
@@ -76,14 +76,18 @@ const ListedBooks = () => {
                 </TabList>
 
                 <TabPanel>
-                    {readList.map((book) => (
-                        <Book key={book.bookId} book={book} />
-                    ))}
+                    <div className="flex flex-col gap-4">
+                        {readList.map((book) => (
+                            <ListedBook key={book.bookId} book={book} />
+                        ))}
+                    </div>
                 </TabPanel>
                 <TabPanel>
-                    {wishList.map((book) => (
-                        <Book key={book.bookId} book={book} />
-                    ))}
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {wishList.map((book) => (
+                            <ListedBook key={book.bookId} book={book} />
+                        ))}
+                    </div>
                 </TabPanel>
             </Tabs>
         </div>

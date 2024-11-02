@@ -42,7 +42,7 @@ const BookDetail = () => {
     };
 
     return (
-        <div className="flex flex-col items-center max-h-screen gap-4 p-4 mb-8 lg:flex-row">
+        <div className="flex flex-col items-center gap-4 p-4 mb-8 lg:flex-row">
             <div className="w-full md:w-1/2">
                 <img
                     className="w-full h-auto max-h-[400px] lg:max-h-[765px] rounded-xl"
